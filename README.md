@@ -1,7 +1,8 @@
 # Vault Auto Unseal Feature using AWS KMS Setup
 This repo has a vagrant file to create an enterprise Vault Cluster with Consul backend.  
 Seal stanza is added to the Vault config file to setup auto unseal using AWS KMS.
-Vagrant file also creates a secondary cluster with auto unseal with AWS KMS using a different KMS ring.  This secondary can be configured as a DR or Performance Replication to perform further tests.
+
+Vagrant file also has code to create a secondary cluster with auto unseal with AWS KMS using a different KMS ring.  This secondary can be configured as a DR or Performance Replication to perform further tests.  Currently this block is commented out and if a secondary cluster is required then uncomment the block.
 
 Each cluster contains 2 nodes and each note consists of a Consul Server and Vault server.  
 The configuration is used for learning purposes.  This is NOT following the reference architecture for Vault and should not be used for a Production setup.
@@ -33,7 +34,7 @@ vault2   10.100.1.12
 One of the Consul servers would become the leader.  Similarly one of Vault servers would become the Active node and the other node acts as Read Replica.
 
 ## Vault Secondary Cluster
-2 node cluster is created with each node containing Vault and Consul servers. The server details are shown below
+If the creation of the secondary code block is uncommented in the ```Vagrantfile``` then a 2 node cluster is created with each node containing Vault and Consul servers. The server details are shown below
 
 ```
 vault-dr1   10.100.2.11
@@ -222,5 +223,14 @@ Use one of the server nodes to access the Consul UI on port 8500 and the Vault U
 e.g., Consul UI http://10.100.1.11:8500 
 
 e.g., Vault UI http://10.100.2.11:8500 
+
+
+## Clean Up
+Use the ```destroy``` command and answer ```y``` for the prompt to delete each VM.
+
+```
+$vagrant destroy
+```
+
 
 
